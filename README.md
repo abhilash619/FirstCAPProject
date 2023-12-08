@@ -1,6 +1,7 @@
-# Getting Started
+#Adding line from feature
+#Getting Started
 
-This Cap project include DB module and Srv module
+#This Cap project include DB module and Srv module
 
 Welcome to your new project.
 
