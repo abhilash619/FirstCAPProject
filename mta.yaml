@@ -1,0 +1,40 @@
+_schema-version: '3.1'
+ID: FirstCAPProject
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npx cds build --production
+modules:
+  - name: FirstCAPProject-srv
+    type: nodejs
+    path: srv
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: FirstCAPProject-db
+
+  - name: FirstCAPProject-db-deployer
+    type: hdb
+    path: db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: FirstCAPProject-db
+
+resources:
+  - name: FirstCAPProject-db
+    type: com.sap.xs.hdi-container
+    parameters:  
+      service: hana
+      service-plan: hdi-shared
