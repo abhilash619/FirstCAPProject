@@ -1,4 +1,5 @@
 #Adding line from feature
+#Adding line from Business Application Studio
 #Getting Started
 
 #This Cap project include DB module and Srv module
