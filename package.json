@@ -1,8 +1,11 @@
 {
-  "name": "FirstCAPProject",
+  "name": "firstcapproject",
   "version": "1.0.0",
   "description": "A simple CAP project.",
-  "repository": "<Add your repository here>",
+  "repository": {
+    "type": "git",
+    "url": "<Add your repository here>"
+  },
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
@@ -12,7 +15,7 @@
   },
   "engines": {
     "node": "^12.18.0 || ^14.0.0 || ^16.0.0 || ^18.0.0"
- },
+  },
   "scripts": {
     "start": "cds-serve"
   },
@@ -25,7 +28,10 @@
     },
     "requires": {
       "db": "hana",
-      "kind":"mocked"
-    }     
-  }
+      "kind": "mocked"
+    }
+  },
+  "main": "index.js",
+  "devDependencies": {},
+  "author": ""
 }

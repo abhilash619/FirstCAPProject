@@ -3,5 +3,11 @@
     "target": {
       "object": "CV_Interaction"
     }
+  },
+  "EMPLOYEE_TABLE": {
+    "target": {
+      "object": "Employee",
+      "schema": "DTFIN"
+    }
   }
 }

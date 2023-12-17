@@ -38,4 +38,11 @@ key     ID: Integer  @title: 'ID: ID' ;
         LOGTEXT: String(1024)  @title: 'LOGTEXT: LOGTEXT' ; 
 }
 
+@cds.persistence.exists 
+@cds.persistence.calcview 
+Entity CV_EMPLOYEE {
+key     EMPID: Integer  @title: 'EMPID: EMPID' ; 
+        EMPNAME: String(50)  @title: 'EMPNAME: EMPNAME' ; 
+}
+
 

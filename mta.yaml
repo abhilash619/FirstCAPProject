@@ -1,40 +1,53 @@
-_schema-version: '3.1'
+_schema-version: "3.1"
 ID: FirstCAPProject
+description: A simple CAP project.
 version: 1.0.0
-description: "A simple CAP project."
+modules:
+- name: FirstCAPProject-srv
+  type: nodejs
+  path: srv
+  requires:
+  - name: FirstCAPProject-db
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+  build-parameters:
+    builder: npm
+- name: FirstCAPProject-db-deployer
+  type: hdb
+  path: db
+  requires:
+  - name: FirstCAPProject-db
+    properties:
+      TARGET_CONTAINER: ~{hdi-container-name}
+  - name: cross-container-service-1
+    group: SERVICE_REPLACEMENTS
+    properties:
+      key: ServiceName_1
+      service: ~{the-service-name}
+  parameters:
+    buildpack: nodejs_buildpack
+resources:
+- name: FirstCAPProject-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+  properties:
+    hdi-container-name: ${service-name}
+- name: cross-container-service-1
+  type: org.cloudfoundry.existing-service
+  parameters:
+    service-name: REMOTE_OBJECTS
+  properties:
+    the-service-name: ${service-name}
 parameters:
   enable-parallel-deployments: true
 build-parameters:
   before-all:
-    - builder: custom
-      commands:
-        - npx cds build --production
-modules:
-  - name: FirstCAPProject-srv
-    type: nodejs
-    path: srv
-    parameters:
-      buildpack: nodejs_buildpack
-    build-parameters:
-      builder: npm
-    provides:
-      - name: srv-api # required by consumers of CAP services (e.g. approuter)
-        properties:
-          srv-url: ${default-url}
-    requires:
-      - name: FirstCAPProject-db
-
-  - name: FirstCAPProject-db-deployer
-    type: hdb
-    path: db
-    parameters:
-      buildpack: nodejs_buildpack
-    requires:
-      - name: FirstCAPProject-db
-
-resources:
-  - name: FirstCAPProject-db
-    type: com.sap.xs.hdi-container
-    parameters:  
-      service: hana
-      service-plan: hdi-shared
+  - builder: custom
+    commands:
+    - npx cds build --production

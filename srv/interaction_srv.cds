@@ -1,5 +1,6 @@
 using app.interactions from '../db/interactions';
 using CV from '../db/interactions';
+using CV_EMPLOYEE from '../db/interactions';
 
 service CatalogService {
 
@@ -10,5 +11,6 @@ service CatalogService {
 
    @readonly
    entity V_Interaction       as projection on CV;
+   entity V_EMPLOYEE          as projection on CV_EMPLOYEE;
 
 }
